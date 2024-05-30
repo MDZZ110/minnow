@@ -4,13 +4,34 @@
 #include <iostream>
 #include <span>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
 void get_URL( const string& host, const string& path )
 {
-  cerr << "Function called: get_URL(" << host << ", " << path << ")\n";
-  cerr << "Warning: get_URL() has not been implemented yet.\n";
+//  cerr << "Function called: get_URL(" << host << ", " << path << ")\n";
+//  cerr << "Warning: get_URL() has not been implemented yet.\n";
+
+  auto address = Address(host, "http");
+  TCPSocket tcpSocket = TCPSocket();
+
+  tcpSocket.connect(address);
+  vector<string> buffers;
+  stringstream ss;
+  ss << "GET " << path << " HTTP/1.1" << "\r\n" ;
+  ss << "Host: " << host << "\r\n";
+  ss << "Connection: close\r\n\r\n";
+  buffers.push_back(ss.str());
+  tcpSocket.write(buffers);
+  tcpSocket.shutdown(SHUT_WR);
+  while (!tcpSocket.eof()){
+    string line;
+    tcpSocket.read(line);
+    cout << line;
+  };
+
+  tcpSocket.close();
 }
 
 int main( int argc, char* argv[] )

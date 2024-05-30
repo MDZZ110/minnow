@@ -1,0 +1,5 @@
+/home/chenz/data/minnow/apps/CMakeFiles/stream_copy.dir
+/home/chenz/data/minnow/apps/CMakeFiles/webget.dir
+/home/chenz/data/minnow/apps/CMakeFiles/tcp_native.dir
+/home/chenz/data/minnow/apps/CMakeFiles/edit_cache.dir
+/home/chenz/data/minnow/apps/CMakeFiles/rebuild_cache.dir
