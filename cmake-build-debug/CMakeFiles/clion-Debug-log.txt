@@ -1,5 +1,5 @@
 /home/chenz/data/CLion-2023.3.4/clion-2023.3.4/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/chenz/data/CLion-2023.3.4/clion-2023.3.4/bin/ninja/linux/x64/ninja -G Ninja -S /home/chenz/data/minnow -B /home/chenz/data/minnow/cmake-build-debug
 -- Building in 'Debug' mode.
--- Configuring done (0.5s)
+-- Configuring done (1.0s)
 -- Generating done (0.1s)
 -- Build files have been written to: /home/chenz/data/minnow/cmake-build-debug

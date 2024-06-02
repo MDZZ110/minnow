@@ -1,12 +1,13 @@
 #pragma once
 
 #include "byte_stream.hh"
+#include "map"
 
 class Reassembler
 {
 public:
   // Construct Reassembler to write into given ByteStream.
-  explicit Reassembler( ByteStream&& output ) : output_( std::move( output ) ) {}
+  explicit Reassembler( ByteStream&& output ) : output_( std::move( output ) ), next_index(0) {}
 
   /*
    * Insert a new substring to be reassembled into a ByteStream.
@@ -29,7 +30,7 @@ public:
    * The Reassembler should close the stream after writing the last byte.
    */
   void insert( uint64_t first_index, std::string data, bool is_last_substring );
-
+  std::string  merge_string(uint64_t index_a, uint64_t index_b, std::string&& string_a, std::string&& string_b);
   // How many bytes are stored in the Reassembler itself?
   uint64_t bytes_pending() const;
 
@@ -42,4 +43,6 @@ public:
 
 private:
   ByteStream output_; // the Reassembler writes to this ByteStream
+  uint64_t next_index = 0;
+  std::map<uint64_t, std::string> cache;
 };
