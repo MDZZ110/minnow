@@ -19,7 +19,7 @@ bool Writer::is_closed() const
 
 void Writer::push( string data )
 {
-  if (data.empty() || is_closed() || has_error()) {
+  if (data.empty() || has_error()) {
     return;
   }
 

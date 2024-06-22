@@ -6,6 +6,27 @@ using namespace std;
 
 void Reassembler::insert( uint64_t first_index, string data, bool is_last_substring )
 {
+
+  if (is_last_substring) {
+    last_received = true;
+    finish_next_index = first_index + data.size();
+  }
+
+  if(first_index < next_index) {
+    uint64_t pos = next_index - first_index;
+    if (pos >= data.size()) {
+      return;
+    }
+
+    data = data.substr(pos);
+    first_index = next_index;
+  }
+
+  uint64_t max_len = output_.writer().available_capacity() - first_index + next_index;
+  if(data.size() > max_len) {
+    data = data.substr(0, max_len);
+  }
+
   // Your code here.
   std::vector<uint64_t> related_cache_indexes;
 
@@ -39,7 +60,8 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
   }
 
 
-  if (is_last_substring) {
+
+  if (last_received and (next_index == finish_next_index)) {
     output_.writer().close();
   }
 
@@ -48,7 +70,7 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
 
 uint64_t Reassembler::bytes_pending() const
 {
-  uint64_t pending;
+  uint64_t pending = 0;
   for(auto& itr: cache) {
     pending += itr.second.size();
   }
@@ -58,8 +80,17 @@ uint64_t Reassembler::bytes_pending() const
 string  Reassembler::merge_string(uint64_t index_a, uint64_t index_b, string&& string_a, string&& string_b) {
   uint64_t front_index = index_a<=index_b?index_a:index_b;
   uint64_t behind_index = index_a<=index_b?index_b:index_a;;
-  string&& front = move(front_index==index_a?string_a:string_b);
-  string&& behind = move(behind_index==index_a?string_a:string_b);
+  string front;
+  string behind;
+
+  if (index_a == index_b) {
+    front = string_a;
+    behind = string_b;
+  } else {
+    front = index_a==front_index?string_a:string_b;
+    behind = index_a==behind_index?string_a:string_b;
+  }
+
   if (front_index + front.size() >= behind_index + behind.size()) {
     return front;
   }

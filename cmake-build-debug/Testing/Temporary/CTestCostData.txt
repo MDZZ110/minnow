@@ -1,12 +1,15 @@
-compile with bug-checkers 1 32.9628
-t_webget 1 1.73495
-byte_stream_basics 1 0.029192
-byte_stream_capacity 1 0.0298242
-byte_stream_one_write 1 0.029636
-byte_stream_two_writes 1 0.0247496
-byte_stream_many_writes 0 0
-byte_stream_stress_test 0 0
-compile with optimization 0 0
-byte_stream_speed_test 0 0
+compile 0 0
+t_webget 3 0.535651
+byte_stream_basics 3 0.0141421
+byte_stream_capacity 2 0.0132767
+byte_stream_one_write 2 0.0127325
+byte_stream_two_writes 2 0.0130978
+byte_stream_many_writes 1 0.0984591
+byte_stream_stress_test 1 0.787637
+compile 0 0
+byte_stream_speed_test 1 0.732247
+compile 0 0
+compile 0 0
+compile with bug-checkers 1 9.57187
+compile with optimization 1 17.2869
 ---
-byte_stream_many_writes

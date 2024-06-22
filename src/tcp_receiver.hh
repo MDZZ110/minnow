@@ -24,7 +24,10 @@ public:
   Reader& reader() { return reassembler_.reader(); }
   const Reader& reader() const { return reassembler_.reader(); }
   const Writer& writer() const { return reassembler_.writer(); }
+  uint64_t get_checkpoint_abs_seqno() { return reassembler_.get_unassembled_index(); };
 
 private:
   Reassembler reassembler_;
+  std::optional<Wrap32> zero_point_ {};
+  std::optional<Wrap32> ackno_ {};
 };
